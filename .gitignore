@@ -1,0 +1,4 @@
+node_modules
+dist
+.env
+# (do NOT ignore mp4 if < 50MB)

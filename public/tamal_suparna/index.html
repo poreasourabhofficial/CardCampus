@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tamal & Suparna — Wedding Invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Imperial+Script&family=Italianno&family=Jaini&family=IM+Fell+French+Canon+SC&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --red: #ac0000; }
+
+/* ─── FIXED GLOBAL SCROLL SETUP ─── */
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;           /* prevents double scrollbar */
+  background: #d0d0d0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;     /* keeps it at the top on very tall phones */
+         /* nice breathing room on mobile */
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+/* ─── .page becomes the ONLY scrolling container ─── */
+.page {
+  width: 100%;
+  max-width: 440px;
+  height: 100vh;                    /* full viewport height */
+  margin: 0 auto;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;                 /* only this scrolls */
+  overflow-x: visible;              /* allows blossoms to peek out */
+  -webkit-overflow-scrolling: touch;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15); /* optional nice “phone” shadow */
+}
+
+/* ─── CRITICAL IMAGE FIX ─── */
+.img-band {
+  width: 100%;
+  overflow: hidden;
+  display: block;
+  flex-shrink: 0;                   /* prevents flex collapse */
+}
+
+.img-band img {
+  width: 100%;
+  height: auto;                     /* ← THIS IS THE FIX */
+  display: block;
+  transition: transform .6s ease;
+  object-fit: cover;                /* still works because we use auto height */
+}
+
+/* ─── REMOVE THE TROUBLESOME PADDINGS THAT CAUSED HORIZONTAL SCROLL ─── */
+.reveal-left  { padding-right: 0; }
+.reveal-right { padding-left: 0; }
+
+/* Optional: hide scrollbar completely for ultra-clean look (keeps functionality) */
+.page::-webkit-scrollbar { display: none; }
+.page { -ms-overflow-style: none; scrollbar-width: none; }
+/* ─── SCROLL REVEAL ─── */
+.reveal       { opacity:0; transform:translateY(30px);  transition:.75s ease; }
+.reveal-left  { opacity:0; transform:translateX(-35px); transition:.7s ease; padding-right: 167px;}
+.reveal-right { opacity:0; transform:translateX(35px);  transition:.7s ease; padding-left: 173px;}
+.reveal-scale { opacity:0; transform:scale(.9);         transition:.8s ease; }
+.visible      { opacity:1 !important; transform:none !important; }
+.d1 { transition-delay:.1s; }
+.d2 { transition-delay:.2s; }
+.d3 { transition-delay:.35s; }
+.d4 { transition-delay:.5s; }
+
+/* ─── HERO ─── */
+.hero {
+  background: #fff;
+  padding: 56px 24px 44px;
+  text-align: center;
+  position: relative;
+  overflow: visible;
+}
+.hero-blossom {
+  position: absolute;
+  top: 10px; left: -05px;
+  width: 230px;
+  pointer-events: none;
+  z-index: 2;
+  animation: drift 7s ease-in-out infinite alternate;
+}
+@keyframes drift {
+  from { transform: rotate(-2deg) translate(0,0); }
+  to   { transform: rotate(2deg)  translate(5px,8px); }
+}
+.hero-tagline {
+  font-size: 14px; color: #333;
+  line-height: 1.7; margin-bottom: 26px;
+  position: relative; z-index: 3;
+  padding-top:103px; 
+}
+.monogram-row {
+  display: flex; align-items: center;
+  justify-content: center;
+  position: relative; z-index: 3;
+  margin-bottom: 6px;
+}
+.mono-letter {
+  font-family: 'IM Fell French Canon SC', serif;
+  font-size: 72px; color: #000; line-height: 1;
+}
+.mono-sep {
+  width: 1px; height: 78px;
+  background: #000; margin: 0 18px;
+}
+.hero-sub {
+  font-size: 15px; color: #000;
+  letter-spacing: 1.5px;
+  position: relative; z-index: 3;
+}
+
+/* ─── IMAGE BAND ─── */
+.img-band {
+  width: 100%; 
+  overflow: hidden; display: block;
+}
+.img-band img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform .6s ease;
+}
+.img-band:hover img { transform: scale(1.04); }
+
+/* ─── PARENTS SECTION ─── */
+.parents-section {
+  background: #fff;
+  padding: 44px 24px 24px;
+  text-align: center;
+}
+.blessing {
+  font-size: 13px; color: #333;
+  margin-bottom: 24px;
+}
+.parents-row {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+.parents-col { flex: 1; }
+.parents-label {
+  font-size: 14px; font-weight: 400;
+  color: #000; margin-bottom: 4px;
+}
+.parents-name {
+  font-family: 'Italianno', cursive;
+  font-size: 20px; color: #000; line-height: 1.5;
+}
+
+/* ─── GREY CARD (Figma node 80:2) ─── */
+.card-outer {
+  background: #fff;
+  padding: 0 15px;
+  position: relative;
+}
+.grey-card {
+  background: #d9d9d9;
+  border-radius: 33px;
+  padding: 28px 24px 32px;
+  position: relative;
+  overflow: visible;
+  text-align: center;
+}
+/* Right blossom — top-right, overflows */
+.card-blossom-right {
+  position: absolute;
+  top: 40px;
+  right: -25px;
+  width: 210px;
+  pointer-events: none; z-index: 10;
+  animation: drift 7s ease-in-out infinite alternate;
+}
+/* Left blossom — bottom-left, rotate(180) scaleY(-1) = Figma's transform */
+.card-blossom-left {
+  position: absolute;
+  top: 84px; left: -36px;
+  width: 220px;
+  pointer-events: none; z-index: 10;
+  transform: rotate(180deg) scaleY(-1);
+  animation: drift 8s ease-in-out infinite alternate-reverse;
+}
+.card-together {
+  font-size: 13px; color: #000;
+  margin-bottom: 16px;
+  position: relative; z-index: 2;
+}
+.card-names {
+  font-family: 'Imperial Script', cursive;
+  font-size: 64px; color: #000;
+  line-height: 1.18; text-align: center;
+  position: relative; z-index: 2;
+  margin-bottom: 18px;
+  padding-right: 33px;
+}
+.card-invite {
+  font-size: 15px; color: #000;
+  line-height: 1.75; text-align: center;
+  position: relative; z-index: 2;
+  margin-bottom: 26px;
+}
+
+/* ─── DATE inside grey card ─── */
+.card-date { position: relative; z-index: 2; text-align: center; }
+.date-month {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 22px; color: #000;
+  letter-spacing: 1px; margin-bottom: 2px;
+}
+.date-row {
+  display: flex; align-items: center;
+  justify-content: center; margin-top: 4px;
+}
+.date-side {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 6px; width: 110px;
+}
+.date-line { width: 86px; height: 1px; background: #000; }
+.date-lbl  { font-size: 20px; color: #000; }
+.date-num  {
+  font-family: 'Jaini', serif;
+  font-size: 90px; color: #000;
+  line-height: 1; width: 110px; text-align: center;
+}
+
+/* ─── COUNTDOWN — white bg, black text ─── */
+.countdown-section {
+  background: #fff;
+  padding: 36px 20px 44px;
+  text-align: center;
+}
+.countdown-title {
+  font-size: 18px; color: #000;
+  margin-bottom: 14px; letter-spacing: .5px;
+}
+.countdown-nums {
+  font-size: 40px; color: #000;
+  letter-spacing: 2px; margin-bottom: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.countdown-labels {
+  display: flex;     
+  justify-content: center;
+  gap: 43px;
+}
+.cd-lbl { font-size: 14px; color: #555; }
+
+/* ─── VENUE ─── */
+.venue-section {
+  background: #fff;
+  padding: 20px 18px 30px;
+  text-align: center;
+}
+.venue-card {
+  background: #d9d9d9;
+  border-radius: 33px;
+  padding: 26px 22px 28px;
+}
+.sec-title {
+  font-size: 19px; color: #000;
+  margin-bottom: 12px; letter-spacing: .5px;
+}
+.venue-addr {
+  font-size: 13px; color: #333;
+  line-height: 1.9; margin-bottom: 20px;
+}
+.loc-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid var(--red); border-radius: 16px;
+  padding: 5px 18px 5px 10px;
+  font-size: 13px; color: #000;
+  text-decoration: none; background: transparent;
+  cursor: pointer; transition: background .2s;
+}
+.loc-btn:hover { background: rgba(172,0,0,.07); }
+.loc-btn img { width: 20px; height: 20px; object-fit: contain; }
+
+/* ─── TIMELINE ─── */
+.timeline-section {
+  background: #fff;
+  padding: 10px 20px 36px;
+  text-align: center;
+}
+.tl-wrap {
+  position: relative; margin-top: 20px;
+}
+.tl-wrap::before {
+  content: '';
+  position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 1px; background: #ccc;
+  transform: translateX(-50%);
+}
+.tl-item {
+  display: flex; align-items: center;
+  justify-content: center; position: relative;
+}
+.tl-item.r .tl-text { text-align: left; padding-left: 14px; order: 1; }
+.tl-item.r .tl-icon { order: 0; }
+.tl-item.l .tl-text { text-align: right; padding-right: 14px; order: 0; }
+.tl-item.l .tl-icon { order: 1; }
+.tl-text { width: 170px; flex-shrink: 0; padding: 8px 0; }
+.tl-name { font-size: 14px; color: #111; line-height: 1.4; }
+.tl-time { font-size: 10px; color: #777; margin-top: 3px; }
+.tl-icon {
+  width: 70px; height: 70px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: #fff; position: relative; z-index: 2;
+}
+.tl-icon img { width: 64px; height: 64px; object-fit: contain; }
+.tl-line {
+  width: 1px; height: 42px; background: #ccc; margin: 0 auto;
+}
+
+/* ─── DRESS CODE ─── */
+.dresscode-section {
+  background: #fff; padding: 32px 24px 30px;
+  text-align: center;
+  border-top: 1px solid #f0ece6;
+}
+.dresscode-img {
+  width: 155px; height: 155px; object-fit: contain;
+  margin: 14px auto 20px; display: block;
+}
+.dresscode-text { font-size: 12px; color: #333; line-height: 2; }
+
+/* ─── GIFT NOTE ─── */
+.gift-section {
+  background: #fff; padding: 22px 24px 32px;
+  text-align: center;
+  border-top: 1px solid #f0ece6;
+}
+.gift-icon {
+  width: 60px; height: 60px; object-fit: contain;
+  margin: 12px auto 16px; display: block;
+}
+.gift-text {
+  font-size: 13px; color: #333; line-height: 1.9;
+  max-width: 360px; margin: 0 auto;
+}
+
+/* ─── RSVP ─── */
+.rsvp-section { padding: 50px 50px 36px; background: #fff; }
+.rsvp-card {
+  background: rgba(255,255,255,.85);
+  border-radius: 25px;
+  padding: 26px 28px 28px;
+  box-shadow: 0 4px 24px rgba(0,0,0,.09);
+  border: 1px solid rgba(0,0,0,.06);
+  text-align: center;
+}
+.rsvp-title { font-size: 19px; color: #000; margin-bottom: 4px; }
+.rsvp-deadline { font-size: 10px; color: #666; margin-bottom: 20px; }
+.rsvp-field {
+  display: flex; align-items: center;
+  margin-bottom: 14px; gap: 10px;
+}
+.rsvp-field label { font-size: 14px; white-space: nowrap; flex-shrink: 0; }
+.rsvp-line {
+  flex: 1; border: none; outline: none;
+  background: transparent;
+  border-bottom: 1px solid #999;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 14px; padding: 3px 4px;
+}
+.rsvp-btn {
+  border: 1px solid var(--red); border-radius: 16px;
+  padding: 6px 32px; font-size: 15px;
+  color: #000; background: transparent;
+  cursor: pointer; margin-top: 16px;
+  transition: background .2s;
+  font-family: 'Josefin Sans', sans-serif;
+}
+.rsvp-btn:hover { background: rgba(172,0,0,.07); }
+.rsvp-contact { font-size: 9px; color: #666; margin-top: 12px; }
+.ty-msg {
+  display: none; font-family: 'Imperial Script', cursive;
+  font-size: 28px; color: var(--red); padding: 18px 0;
+}
+
+/* ─── CTA ─── */
+.cta-section {
+  background: #fff; padding: 20px 24px 10px; text-align: center;
+}
+.cta-text { font-size: 13px; color: #333; line-height: 1.8; margin-bottom: 3px; }
+.cta-script {
+  font-family: 'Imperial Script', cursive;
+  font-size: 46px; color: #000; margin-top: 8px;
+}
+
+/* ─── FOOTER ─── */
+.footer-block {
+  background: #fff;
+  border-radius: 35px 35px 0 0;
+  padding: 12px 13px 50px;
+  text-align: center;
+  margin-top: 20px;
+  /*box-shadow: 0 -4px 20px rgba(0,0,0,.06);*/
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+.footer-logo {
+  width: 168px; height: 200px; object-fit: contain;
+  margin: -71px auto -72px; display: block;
+}
+.footer-studio { font-size: 13px; color: #111; line-height: 1.5; }
+.footer-sub { font-size: 9px; color: #777; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="page">
+  
+
+<!-- ══ 1. HERO ══ -->
+<section class="hero">
+  <img class="hero-blossom" src="https://pub-dbae2461049248d1b4db430fba3b5577.r2.dev/tamal_suporna/top%20flowers%2011.png" alt="" onerror="this.style.display='none'">
+  <p class="hero-tagline reveal">Two hearts, one journey,<br>a lifetime of love.</p>
+  <div class="monogram-row reveal d1" style="padding:30px">
+    <span class="mono-letter">T</span>
+    <div class="mono-sep"></div>
+    <span class="mono-letter">S</span>
+  </div>
+  <p class="hero-sub reveal d2" style="padding-top:20px; padding-bottom:20px">We Are Getting Married</p>
+</section>
+
+<!-- ══ 2. IMAGE 1 — Jewellery ══ -->
+<div class="img-band reveal-scale">
+  <img src="https://pub-dbae2461049248d1b4db430fba3b5577.r2.dev/tamal_suporna/image%20frame.svg" alt="Wedding jewellery">
+  
+
+</div>
+
+<!-- ══ 3. PARENTS SECTION ══ -->
+<section class="parents-section">
+  <p class="blessing reveal" style="padding-bottom: 20px;">With the blessings of our beloved parents and family,</p>
+  <div class="parents-row"  style="padding-bottom: 20px;">
+    <div class="parents-col d1">
+      <div class="parents-label">Groom's Parents</div>
+      <div class="parents-name">Mr. Tushar Kanti Samanta<br>Mrs. Manasi Samanta</div>
+    </div>
+    <div class="parents-col d1">
+      <div class="parents-label">Bride's Parents</div>
+      <div class="parents-name">Mr. Manik Rana<br>Mrs. Priyanka Rana</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 4. GREY CARD — names + date ══ -->
+<div class="card-outer" style="padding-bottom:30px;">
+  <div class="grey-card reveal-scale">
+
+    <!-- Figma: imgUntitledDesign732 right (normal) -->
+    <img class="card-blossom-right" src="https://pub-dbae2461049248d1b4db430fba3b5577.r2.dev/tamal_suporna/right%20side%2011.png" alt="" onerror="this.style.display='none'">
+    <!-- Figma: imgUntitledDesign732 left (rotate180 scaleY-1) -->
+    <img class="card-blossom-left"  src="https://pub-dbae2461049248d1b4db430fba3b5577.r2.dev/tamal_suporna/left%20flower%20image.png" alt="" onerror="this.style.display='none'">
+
+    <p class="card-together reveal d1">Together with their families,</p>
+
+    <div class="card-names reveal d2">
+      Tamal<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Suparna
+    </div>
+
+    <p class="card-invite reveal d3">cordially invite you to celebrate their wedding and bless them as they begin a beautiful journey together.</p>
+
+    <!-- Date inside the card -->
+    <div class="card-date reveal d4">
+      <p class="date-month">April</p>
+      <div class="date-row">
+        <div class="date-side">
+          <div class="date-line"></div>
+          <div class="date-lbl">Thursday</div>
+          <div class="date-line"></div>
+        </div>
+        <div class="date-num">23</div>
+        <div class="date-side">
+          <div class="date-line"></div>
+          <div class="date-lbl">2026</div>
+          <div class="date-line"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ 5. COUNTDOWN — white bg, black text ══ -->
+<section class="countdown-section">
+  <p class="countdown-title reveal">Countdown</p>
+  <div class="countdown-nums reveal d1" id="countdown">-- : -- : -- : --</div>
+  <div class="countdown-labels reveal d2">
+    <span class="cd-lbl">Days</span>
+    <span class="cd-lbl">Hours</span>
+    <span class="cd-lbl">Minutes</span>
+    <span class="cd-lbl">Seconds</span>
+  </div>
+</section>
+
+<!-- ══ 6. IMAGE 2 — Groom haldi ══ -->
+<div class="img-band reveal-scale">
+<img src="https://pub-dbae2461049248d1b4db430fba3b5577.r2.dev/tamal_suporna/image2.png" alt="Wedding jewellery"></div>
+
+<!-- ══ 7. VENUE ══ -->
+<section class="venue-section">
+  <div class="venue-card reveal">
+    <p class="sec-title">Venue</p>
+    <p class="venue-addr">
+      Samanta Bhavan<br>
+      Kaknan, Bandar, Hooghly<br>
+      WestBengal
+    </p>
+    <a href="https://maps.app.goo.gl/EZZ8tGT8D6bFs4ve7" class="loc-btn" target="_blank">
+      <img src="https://pub-dbae2461049248d1b4db430fba3b5577.r2.dev/tamal_suporna/location.png" alt="" onerror="this.style.display='none'">
+      Location
+    </a>
+  </div>
+</section>
+
+<!-- ══ 8. EVENT TIMELINE ══ -->
+<section class="timeline-section">
+  <p class="sec-title reveal">Event Timeline</p>
+  <div class="tl-wrap">
+
+    <div class="tl-item r reveal-right d1">
+      <div class="tl-icon"><img src="https://pub-dbae2461049248d1b4db430fba3b5577.r2.dev/tamal_suporna/aaiburobhat%2011.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="tl-text">
+        <div class="tl-name">Aiburobhat</div>
+        <div class="tl-time">12:00 PM | 20 Apr 2026</div>
+      </div>
+    </div>
+    <div class="tl-line"></div>
+
+    <div class="tl-item l reveal-left d2">
+      <div class="tl-text">
+        <div class="tl-name">Haldi Ceremony</div>
+        <div class="tl-time">12:00 PM | 21 Apr 2026</div>
+      </div>
+      <div class="tl-icon"><img src="https://pub-dbae2461049248d1b4db430fba3b5577.r2.dev/tamal_suporna/haldi%2011.png" alt="" onerror="this.style.display='none'"></div>
+    </div>
+    <div class="tl-line"></div>
+
+    <div class="tl-item r reveal-right d3">
+      <div class="tl-icon"><img src="https://pub-dbae2461049248d1b4db430fba3b5577.r2.dev/tamal_suporna/wedding%2011.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="tl-text">
+        <div class="tl-name">Marriage Ceremony</div>
+        <div class="tl-time">8:00 PM | 21 Apr 2026</div>
+      </div>
+    </div>
+    <div class="tl-line"></div>
+
+    <div class="tl-item l reveal-left d4">
+      <div class="tl-text">
+        <div class="tl-name">Bodhu Boron</div>
+        <div class="tl-time">12:00 PM | 22 Apr 2026</div>
+      </div>
+      <div class="tl-icon"><img src="https://pub-dbae2461049248d1b4db430fba3b5577.r2.dev/tamal_suporna/bodhubaran%2011.png" alt="" onerror="this.style.display='none'"></div>
+    </div>
+    <div class="tl-line"></div>
+
+    <div class="tl-item r reveal-right d4">
+      <div class="tl-icon"><img src="https://pub-dbae2461049248d1b4db430fba3b5577.r2.dev/tamal_suporna/reception%2011.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="tl-text">
+        <div class="tl-name">Reception Ceremony</div>
+        <div class="tl-time">8:00 PM | 23 Apr 2026</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ 9. IMAGE 3 — Bride haldi ══ -->
+<div class="img-band reveal-scale">
+<img src="https://pub-dbae2461049248d1b4db430fba3b5577.r2.dev/tamal_suporna/image3.png" alt="Wedding jewellery"></div>
+
+<!-- ══ 10. DRESS CODE ══ -->
+<!-- <section class="dresscode-section">
+  <p class="sec-title reveal">Dress Code</p>
+  <img src="https://www.figma.com/api/mcp/asset/3e9e2015-fed0-4ad4-babc-cea8d3ea4618" alt="Dress Code" class="dresscode-img reveal-scale d1" onerror="this.style.opacity='.1'">
+  <p class="dresscode-text reveal d2">
+    Traditional / Festive Indian<br>
+    Ladies: Saree / Lehenga / Ethnic Wear<br>
+    Gentlemen: Sherwani / Kurta / Formal Suit
+  </p>
+</section> -->
+
+<!-- ══ 11. GIFT NOTE ══ -->
+<!-- <section class="gift-section">
+  <p class="sec-title reveal">Gift Note</p>
+  <img src="https://www.figma.com/api/mcp/asset/02dfbb0f-5e65-41d5-9399-a7c3a3a9c49a" alt="Gift" class="gift-icon reveal-scale d1" onerror="this.style.opacity='.1'">
+  <p class="gift-text reveal d2">
+    Your presence is the greatest gift to us.<br>
+    However, if you wish to bless us with a gift, we would greatly appreciate blessings, love, and good wishes.
+  </p>
+</section> -->
+
+<!-- ══ 12. RSVP ══ -->
+<section class="rsvp-section">
+  <div class="rsvp-card reveal">
+    <p class="rsvp-title">RSVP</p>
+    <p class="rsvp-deadline">( Kindly confirm your presence before 20 Apr 2026 )</p>
+    <div id="rsvpForm">
+      <div class="rsvp-field">
+        <label>Name :</label>
+        <input class="rsvp-line" type="text" id="rsvpName">
+      </div>
+      <div class="rsvp-field">
+        <label>No. of guest :</label>
+        <input class="rsvp-line" type="number" id="rsvpGuests" min="1" max="10">
+      </div>
+      <div style="text-align:center">
+        <button class="rsvp-btn" onclick="submitRSVP()">Submit</button>
+      </div>
+      <p class="rsvp-contact">For facing any difficulty contact : +91 9679064406</p>
+    </div>
+    <div class="ty-msg" id="tyMsg">Thank you! See you there 🌸</div>
+  </div>
+</section>
+
+<!-- ══ 13. CTA ══ -->
+<section class="cta-section">
+  <p class="cta-text reveal">We look forward to celebrating this special day with you.</p>
+  <p class="cta-text reveal d1" style="padding:15px">With Love &amp; Gratitude</p>
+  <div class="cta-script reveal d2">Tamal &amp; Suparna</div>
+</section>
+
+<!-- ══ 14. IMAGE 4 — Group haldi ══ -->
+<div class="img-band reveal-scale" style="padding-top:50px">
+<img src="https://pub-dbae2461049248d1b4db430fba3b5577.r2.dev/tamal_suporna/image5.png" alt="Wedding jewellery"></div>
+
+<!-- ══ 15. FOOTER ══ -->
+<a href="https://cardcampus.in" target="_self" style="text-decoration: none; color: inherit;">
+  <div class="footer-block reveal">
+    <img src="https://pub-dbae2461049248d1b4db430fba3b5577.r2.dev/tamal_suporna/logo.png" alt="CardCampus" class="footer-logo" onerror="this.style.opacity='.15'">
+    
+    
+    <div class="footer-studio">
+      Digital Invitation Design Studio
+      <div class="footer-sub">Weddings • Anniversaries • Birthdays</div>
+    </div>
+  </div>
+</a>
+
+</div><!-- .page -->
+
+<script>
+// Countdown
+function tick() {
+  const t = new Date('2026-04-23T00:00:00') - new Date();
+  if (t <= 0) { document.getElementById('countdown').textContent = '00 : 00 : 00 : 00'; return; }
+  const p = n => String(Math.floor(n)).padStart(2,'0');
+  document.getElementById('countdown').textContent =
+    p(t/86400000)+' : '+p(t%86400000/3600000)+' : '+p(t%3600000/60000)+' : '+p(t%60000/1000);
+}
+tick(); setInterval(tick, 1000);
+
+// Scroll reveal
+const obs = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('visible');
+}), {threshold: 0.12});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el => obs.observe(el));
+
+// RSVP
+// RSVP (CONNECTED TO GOOGLE SHEETS)
+function submitRSVP() {
+  const name = document.getElementById('rsvpName').value.trim();
+  const guests = document.getElementById('rsvpGuests').value;
+
+  if (!name) {
+    alert('Please enter your name.');
+    return;
+  }
+
+  if (!guests) {
+    alert('Please enter number of guests.');
+    return;
+  }
+
+  // Button loading text
+  const btn = document.querySelector(".rsvp-btn");
+  btn.innerText = "Submitting...";
+
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("guests", guests);
+
+  fetch("https://script.google.com/macros/s/AKfycbzKxpDNtTd6WvCai_HGpnPbAzOpk4tudf5QhgKxGfPOLJZBJfJ8qSjFxAXuU-CQCtkcAA/exec", {
+    method: "POST",
+    mode: "no-cors",
+    body: formData
+  })
+  .then(() => {
+    // Hide form
+    document.getElementById('rsvpForm').style.display = 'none';
+    document.getElementById('tyMsg').style.display = 'block';
+
+    // ✅ WhatsApp notification
+    const message = `New RSVP:\nName: ${name}\nGuests: ${guests}`;
+    const phone = "8327884825";
+
+    //window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank");//
+  })
+  .catch(err => {
+    alert("Error submitting RSVP");
+    console.error(err);
+    btn.innerText = "Submit";
+  });
+}
+
+// Auto-fill Name from URL (?guest=Name)
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const guest = params.get('guest');
+  if (guest) {
+    document.getElementById('rsvpName').value = guest;
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+
+&::-webkit-scrollbar {
+  display: none;
+  width: 0; /* Optional: also set width to 0 for consistency */
+  height: 0; /* For horizontal scrollbar */
+}
+
+body {
+  margin: 0;
+  background: #f8f6f3;
+  font-family: 'Playfair Display', serif;
+  
+}
+
+.p-top-20{
+  padding-top:20px;
+}
+.p-bottom-20{
+  padding-bottom:20px;
+}
+
+.wrapper {
+  max-width: 420px;
+  margin: auto;
+}
+
+.section {
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+.hero {
+  position: relative;
+}
+
+.top-floral {
+  width: 120px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.initials {
+  font-size: 42px;
+  letter-spacing: 6px;
+}
+
+.names {
+  font-family: 'Great Vibes', cursive;
+  font-size: 22px;
+}
+
+.card {
+  width: 100%;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.name {
+  font-size: 24px;
+}
+
+.and {
+  display: block;
+  margin: 10px 0;
+}
+
+.date {
+  font-size: 60px;
+  margin: 10px 0;
+}
+
+.timer {
+  font-size: 22px;
+}
+
+.timeline {
+  position: relative;
+}
+
+.line {
+  width: 2px;
+  height: 200px;
+  background: #ddd;
+  margin: auto;
+}
+
+.event {
+  margin: 15px 0;
+  font-size: 16px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  background: black;
+  color: white;
+  border: none;
+}
